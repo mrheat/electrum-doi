@@ -330,8 +330,8 @@ class Blockchain(Logger):
         if constants.net.TESTNET:
             return
         bits = cls.target_to_bits(target)
-        if bits != header.get('bits'):
-            raise Exception("bits mismatch: %s vs %s" % (bits, header.get('bits')))
+        #if bits != header.get('bits'):
+        #    raise Exception("bits mismatch: %s vs %s" % (bits, header.get('bits')))
         # Don't verify AuxPoW when covered by a checkpoint
         if header.get('block_height') <= constants.net.max_checkpoint():
             skip_auxpow = True
@@ -567,11 +567,12 @@ class Blockchain(Logger):
             h, t = self.checkpoints[index]
             return t
         # new target
-        if (index * 2016 + 2015 > 19200) and (index * 2016 + 2015 + 1 > 2016):
-            # Namecoin: Apply retargeting hardfork after AuxPoW start
-            first = self.read_header(index * 2016 - 1)
-        else:
-            first = self.read_header(index * 2016)
+        #if (index * 2016 + 2015 > 19200) and (index * 2016 + 2015 + 1 > 2016):
+        #if (index * 2016 + 2015 > 19200) and (index * 2016 + 2015 + 1 > 2016):
+        #    # Namecoin: Apply retargeting hardfork after AuxPoW start
+        #first = self.read_header(index * 2016 - 1)
+        #else:
+        first = self.read_header(index * 2016)
         last = self.read_header(index * 2016 + 2015)
         if not first or not last:
             raise MissingHeader()
@@ -589,7 +590,7 @@ class Blockchain(Logger):
     @classmethod
     def bits_to_target(cls, bits: int) -> int:
         bitsN = (bits >> 24) & 0xff
-        if not (0x03 <= bitsN <= 0x1d):
+        if not (0x03 <= bitsN <= 0x1f): #Doichain
             raise Exception("First part of bits should be in [0x03, 0x1d]")
         bitsBase = bits & 0xffffff
         if not (0x8000 <= bitsBase <= 0x7fffff):
@@ -641,7 +642,7 @@ class Blockchain(Logger):
         work_in_last_partial_chunk = (height % 2016 + 1) * work_in_single_header
         return running_total + work_in_last_partial_chunk
 
-    def can_connect(self, header: dict, check_height: bool=True, skip_auxpow: bool=False) -> bool:
+    def can_connect(self, header: dict, check_height: bool=True, skip_auxpow: bool=True) -> bool:
         if header is None:
             return False
         height = header['block_height']

@@ -57,8 +57,8 @@ class AbstractNet:
         #
         # It should be noted that this hack causes Electrum-NMC to need at
         # least 2 checkpoints, whereas upstream Electrum only needs 1.
-        #return max(0, len(cls.CHECKPOINTS) * 2016 - 1)
-        return max(0, (len(cls.CHECKPOINTS)-1) * 2016 - 1)
+        return max(0, len(cls.CHECKPOINTS) * 2016 - 1)
+        #return max(0, (len(cls.CHECKPOINTS)-1) * 2016 - 1)
 
     @classmethod
     def rev_genesis_bytes(cls) -> bytes:
@@ -69,14 +69,14 @@ class BitcoinMainnet(AbstractNet):
 
     TESTNET = False
     WIF_PREFIX = 180
-    ADDRTYPE_P2PKH = 52
-    ADDRTYPE_P2SH = 13
-    SEGWIT_HRP = "nc"
-    GENESIS = "000000000062b72c5e2ceb45fbc8587e807c155b0da735e6483dfba2f0a9c770"
+    ADDRTYPE_P2PKH = 52 #34 hex
+    ADDRTYPE_P2SH = 13 #D hex
+    SEGWIT_HRP = "dc"
+    GENESIS = "000006fdd8b4d786fd9bdde5bae9486c464e3aa4336c5f8415dfdd3fc1679134"
     DEFAULT_PORTS = {'t': '50001', 's': '50002'}
     DEFAULT_SERVERS = read_json('servers.json', {})
     CHECKPOINTS = read_json('checkpoints.json', [])
-    BLOCK_HEIGHT_FIRST_LIGHTNING_CHANNELS = 497000
+    #BLOCK_HEIGHT_FIRST_LIGHTNING_CHANNELS = 497000
 
     XPRV_HEADERS = {
         'standard':    0x0488ade4,  # xprv
@@ -98,8 +98,8 @@ class BitcoinMainnet(AbstractNet):
     LN_REALM_BYTE = 0
     LN_DNS_SEEDS = []
 
-    AUXPOW_CHAIN_ID = 0x0001
-    AUXPOW_START_HEIGHT = 19200
+    AUXPOW_CHAIN_ID = 0x0002
+    AUXPOW_START_HEIGHT = 1
 
     NAME_EXPIRATION = 36000
 

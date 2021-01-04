@@ -51,6 +51,12 @@ def split_name_script(decoded):
     if match_script_against_template(decoded[:len(match)], match):
         return {"name_op": {"op": OP_NAME_UPDATE, "name": decoded[1][1], "value": decoded[2][1]}, "address_scriptPubKey": decoded[len(match):]}
 
+        # name_update TxOuts look like:
+    # NAME_UPDATE (name) (value) 2DROP DROP (Bitcoin TxOut)
+    #match = [ OP_NAME_DOI, PPushDataGeneric, OPPushDataGeneric, opcodes.OP_2DROP, opcodes.OP_DROP ]
+    #if match_script_against_template(decoded[:len(match)], match):
+    #    return {"name_op": {"op": OP_NAME_DOI, "name": decoded[1][1], "value": decoded[2][1]}, "address_scriptPubKey": decoded[len(match):]}
+
     return {"name_op": None, "address_scriptPubKey": decoded}
 
 def get_name_op_from_output_script(_bytes):
@@ -81,6 +87,13 @@ def name_op_to_script(name_op):
     elif name_op["op"] == OP_NAME_UPDATE:
         validate_update_length(name_op)
         script = '53'                                 # OP_NAME_UPDATE
+        script += push_script(bh2u(name_op["name"]))
+        script += push_script(bh2u(name_op["value"]))
+        script += '6d'                                # OP_2DROP
+        script += '75' 
+    elif name_op["op"] == OP_NAME_DOI:
+        validate_update_length(name_op)
+        script = '5a'                                 # OP_NAME_DOI
         script += push_script(bh2u(name_op["name"]))
         script += push_script(bh2u(name_op["value"]))
         script += '6d'                                # OP_2DROP
