@@ -35,7 +35,7 @@ folder.
         sudo rm -rf $FRESH_CLONE && \
         mkdir -p $FRESH_CLONE && \
         cd $FRESH_CLONE  && \
-        git clone https://github.com/namecoin/electrum-doi.git && \
+        git clone https://github.com/Le-Space/electrum-doi.git && \
         cd electrum-doi
     ```
 
