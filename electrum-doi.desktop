@@ -1,0 +1,22 @@
+# If you want Electrum to appear in a Linux app launcher ("start menu"), install this by doing:
+# sudo desktop-file-install electrum-doi.desktop
+
+[Desktop Entry]
+Comment=Lightweight Doichain Client
+Exec=sh -c "PATH=\"\\$HOME/.local/bin:\\$PATH\"; electrum-doi %u"
+GenericName[en_US]=Doichain Wallet
+GenericName=Doichain Wallet
+Icon=electrum_doi
+Name[en_US]=Electrum Doichain Wallet
+Name=Electrum Doichain Wallet
+Categories=Finance;Network;
+StartupNotify=true
+StartupWMClass=electrum-doi
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/namecoin;
+Actions=Testnet;
+
+[Desktop Action Testnet]
+Exec=sh -c "PATH=\"\\$HOME/.local/bin:\\$PATH\"; electrum-doi --testnet %u"
+Name=Testnet mode
