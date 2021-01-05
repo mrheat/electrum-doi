@@ -1,19 +1,19 @@
-Electrum-NMC - Lightweight Namecoin client
+Electrum-DOI - Lightweight Doichain client
 =====================================
 
 ::
 
-  Licence: GNU GPLv3+ for Electrum-DOGE components; CC BY 4.0 for Namecoin logo, MIT Licence for all other components
-  Author: The Namecoin developers; based on Electrum by Thomas Voegtlin and Electrum-DOGE by The Electrum-DOGE contributors
+  Licence: GNU GPLv3+ for Electrum-DOGE components; CC BY 4.0 for Doichain logo, MIT Licence for all other components
+  Author: The Doichain developers; based on Electrum by Thomas Voegtlin and Electrum-DOGE by The Electrum-DOGE contributors
   Language: Python (>= 3.6)
   Homepage: https://www.namecoin.org/ ; original Electrum Homepage at https://electrum.org/
 
 
-.. image:: https://travis-ci.org/namecoin/electrum-nmc.svg?branch=master
-    :target: https://travis-ci.org/namecoin/electrum-nmc
+.. image:: https://travis-ci.org/namecoin/electrum-doi.svg?branch=master
+    :target: https://travis-ci.org/namecoin/electrum-doi
     :alt: Build Status
-.. image:: https://coveralls.io/repos/github/namecoin/electrum-nmc/badge.svg?branch=master
-    :target: https://coveralls.io/github/namecoin/electrum-nmc?branch=master
+.. image:: https://coveralls.io/repos/github/namecoin/electrum-doi/badge.svg?branch=master
+    :target: https://coveralls.io/github/namecoin/electrum-doi?branch=master
     :alt: Test coverage statistics
 .. image:: https://d322cqt584bo4o.cloudfront.net/electrum/localized.svg
     :target: https://crowdin.com/project/electrum
@@ -26,11 +26,11 @@ Electrum-NMC - Lightweight Namecoin client
 Getting started
 ===============
 
-(*If you've come here looking to simply run Electrum-NMC,* `you may download it here`_.)
+(*If you've come here looking to simply run Electrum-DOI,* `you may download it here`_.)
 
 .. _you may download it here: https://www.namecoin.org/download/betas/
 
-Electrum-NMC itself is pure Python, and so are most of the required dependencies,
+Electrum-DOI itself is pure Python, and so are most of the required dependencies,
 but not everything. The following sections describe how to run from source, but here
 is a TL;DR::
 
@@ -73,20 +73,20 @@ Running from tar.gz
 -------------------
 
 If you downloaded the official package (tar.gz), you can run
-Electrum-NMC from its root directory without installing it on your
+Electrum-DOI from its root directory without installing it on your
 system; all the pure python dependencies are included in the 'packages'
-directory. To run Electrum-NMC from its root directory, just do::
+directory. To run Electrum-DOI from its root directory, just do::
 
-    ./run_electrum_nmc
+    ./run_electrum_doi
 
-You can also install Electrum-NMC on your system, by running this command::
+You can also install Electrum-DOI on your system, by running this command::
 
     sudo apt-get install python3-setuptools python3-pip
     python3 -m pip install --user .
 
 This will download and install the Python dependencies used by
-Electrum-NMC instead of using the 'packages' directory.
-It will also place an executable named :code:`electrum-nmc` in :code:`~/.local/bin`,
+Electrum-DOI instead of using the 'packages' directory.
+It will also place an executable named :code:`electrum-doi` in :code:`~/.local/bin`,
 so make sure that is on your :code:`PATH` variable.
 
 
@@ -95,8 +95,8 @@ Development version (git clone)
 
 Check out the code from GitHub::
 
-    git clone git://github.com/namecoin/electrum-nmc.git
-    cd electrum-nmc
+    git clone git://github.com/namecoin/electrum-doi.git
+    cd electrum-doi
     git submodule update --init
 
 Run install (this should install dependencies)::
@@ -116,7 +116,7 @@ Create translations (optional)::
 
 Finally, to start Electrum::
 
-    ./run_electrum_nmc
+    ./run_electrum_doi
 
 
 
@@ -150,11 +150,11 @@ See :code:`contrib/build-wine/README.md`.
 Android
 -------
 
-See :code:`electrum_nmc/electrum/gui/kivy/Readme.md`.
+See :code:`electrum_doi/electrum/gui/kivy/Readme.md`.
 
 
 
 AuxPoW Branch
 =============
 
-Electrum-NMC also maintains an ``auxpow`` branch.  This branch is identical to the upstream Bitcoin version of Electrum (e.g. it doesn't have any name support or Namecoin rebranding), except that it supports AuxPoW (merged mining).  It may be useful as a starting point for porting Electrum to other AuxPoW-based cryptocurrencies.
+Electrum-DOI also maintains an ``auxpow`` branch.  This branch is identical to the upstream Bitcoin version of Electrum (e.g. it doesn't have any name support or Doichain rebranding), except that it supports AuxPoW (merged mining).  It may be useful as a starting point for porting Electrum to other AuxPoW-based cryptocurrencies.

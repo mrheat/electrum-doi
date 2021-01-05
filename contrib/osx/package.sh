@@ -17,15 +17,15 @@ export PATH=$PATH:~/bin
 . $(dirname "$0")/base.sh
 
 if [ -z "$1" ]; then
-    echo "Usage: $0 Electrum-NMC.app"
+    echo "Usage: $0 Electrum-DOI.app"
     exit -127
 fi
 
 mkdir -p ~/bin
 
 if ! which ${genisoimage} > /dev/null 2>&1; then
-	mkdir -p /tmp/electrum-nmc-macos
-	cd /tmp/electrum-nmc-macos
+	mkdir -p /tmp/electrum-doi-macos
+	cd /tmp/electrum-doi-macos
 	info "Downloading cdrkit $cdrkit_version"
 	wget -nc ${cdrkit_download_path}/${cdrkit_file_name}
 	tar xvf ${cdrkit_file_name}
@@ -41,8 +41,8 @@ if ! which ${genisoimage} > /dev/null 2>&1; then
 fi
 
 if ! which dmg > /dev/null 2>&1; then
-    mkdir -p /tmp/electrum-nmc-macos
-	cd /tmp/electrum-nmc-macos
+    mkdir -p /tmp/electrum-doi-macos
+	cd /tmp/electrum-doi-macos
 	info "Downloading libdmg"
     LD_PRELOAD= git clone ${libdmg_url}
     cd libdmg-hfsplus
@@ -60,9 +60,9 @@ test -f "$plist" || fail "Info.plist not found"
 VERSION=$(grep -1 ShortVersionString $plist |tail -1|gawk 'match($0, /<string>(.*)<\/string>/, a) {print a[1]}')
 echo $VERSION
 
-rm -rf /tmp/electrum-nmc-macos/image > /dev/null 2>&1
-mkdir /tmp/electrum-nmc-macos/image/
-cp -r $1 /tmp/electrum-nmc-macos/image/
+rm -rf /tmp/electrum-doi-macos/image > /dev/null 2>&1
+mkdir /tmp/electrum-doi-macos/image/
+cp -r $1 /tmp/electrum-doi-macos/image/
 
 build_dir=$(dirname "$1")
 test -n "$build_dir" -a -d "$build_dir" || exit
@@ -73,16 +73,16 @@ ${genisoimage} \
     -D \
     -l \
     -probe \
-    -V "Electrum-NMC" \
+    -V "Electrum-DOI" \
     -no-pad \
     -r \
     -dir-mode 0755 \
     -apple \
-    -o Electrum-NMC_uncompressed.dmg \
-    /tmp/electrum-nmc-macos/image || fail "Unable to create uncompressed dmg"
+    -o Electrum-DOI_uncompressed.dmg \
+    /tmp/electrum-doi-macos/image || fail "Unable to create uncompressed dmg"
 
-dmg dmg Electrum-NMC_uncompressed.dmg electrum-nmc-$VERSION.dmg || fail "Unable to create compressed dmg"
-rm Electrum-NMC_uncompressed.dmg
+dmg dmg Electrum-DOI_uncompressed.dmg electrum-doi-$VERSION.dmg || fail "Unable to create compressed dmg"
+rm Electrum-DOI_uncompressed.dmg
 
 echo "Done."
-sha256sum electrum-nmc-$VERSION.dmg
+sha256sum electrum-doi-$VERSION.dmg

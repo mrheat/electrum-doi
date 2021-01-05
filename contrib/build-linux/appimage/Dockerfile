@@ -29,7 +29,7 @@ RUN apt-get update -q && \
     apt-get autoremove -y && \
     apt-get clean
 
-# For compiling Namecoin-Qt forms
+# For compiling Doichain-Qt forms
 RUN apt-get update -q && \
     apt-get install -qy \
         pyqt5-dev-tools=5.5.1+dfsg-3ubuntu4 \

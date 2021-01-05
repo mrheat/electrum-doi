@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
 # Parameterize
-PYTHON_VERSION=3.7.7
-BUILDDIR=/tmp/electrum-nmc-build
-PACKAGE=Electrum-NMC
-GIT_REPO=https://github.com/namecoin/electrum-nmc
+#PYTHON_VERSION=3.7.7
+PYTHON_VERSION=3.9.0
+BUILDDIR=/tmp/electrum-doi-build
+PACKAGE=Electrum-DOI
+GIT_REPO=https://github.com/namecoin/electrum-doi
 
 export GCC_STRIP_BINARIES="1"
 
@@ -63,7 +64,7 @@ function DoCodeSignMaybe { # ARGS: infoName fileOrDirName
 
 
 info "Installing Python $PYTHON_VERSION"
-export PATH="~/.pyenv/bin:~/.pyenv/shims:~/Library/Python/3.7/bin:$PATH"
+export PATH="~/.pyenv/bin:~/.pyenv/shims:~/Library/Python/3.9/bin:$PATH"
 if [ -d "${HOME}/.pyenv" ]; then
   pyenv update
 else
@@ -98,7 +99,7 @@ info "generating locale"
     fi
     cd "$CONTRIB"/deterministic-build/electrum-locale
     for i in ./locale/*; do
-        dir="$ROOT_FOLDER"/electrum_nmc/electrum/$i/LC_MESSAGES
+        dir="$ROOT_FOLDER"/electrum_doi/electrum/$i/LC_MESSAGES
         mkdir -p $dir
         msgfmt --output-file=$dir/electrum.mo $i/electrum.po || true
     done
@@ -115,7 +116,7 @@ echo "caea266f3fc3982adc55d6cb8d9bad10f6e61f0c24ce5901aa1804618e08e14d  contrib/
 info "Preparing for building libsecp256k1"
 brew install autoconf automake libtool
 "$CONTRIB"/make_libsecp256k1.sh || fail "Could not build libsecp"
-cp "$ROOT_FOLDER"/electrum_nmc/electrum/libsecp256k1.0.dylib contrib/osx
+cp "$ROOT_FOLDER"/electrum_doi/electrum/libsecp256k1.0.dylib contrib/osx
 
 info "Building CalinsQRReader..."
 d=contrib/osx/CalinsQRReader
@@ -170,9 +171,9 @@ if [ ! -z "$CODESIGN_CERT" ]; then
 fi
 
 info "Creating .DMG"
-hdiutil create -fs HFS+ -volname $PACKAGE -srcfolder dist/$PACKAGE.app dist/electrum-nmc-$VERSION.dmg || fail "Could not create .DMG"
+hdiutil create -fs HFS+ -volname $PACKAGE -srcfolder dist/$PACKAGE.app dist/electrum-doi-$VERSION.dmg || fail "Could not create .DMG"
 
-DoCodeSignMaybe ".DMG" "dist/electrum-nmc-${VERSION}.dmg"
+DoCodeSignMaybe ".DMG" "dist/electrum-doi-${VERSION}.dmg"
 
 if [ -z "$CODESIGN_CERT" ]; then
     warn "App was built successfully but was not code signed. Users may get security warnings from macOS."
