@@ -24,6 +24,7 @@ VERSION=`git describe --tags --dirty --always`
 info "Last commit: $VERSION"
 
 # Load electrum-locale for this release
+cat .gitmodules
 git submodule update --init
 
 pushd ./contrib/deterministic-build/electrum-locale
